@@ -46,7 +46,7 @@ public class YandexCurlService {
         //Объект HttpEntity объединяет тело запроса (jsonRequest) и заголовки (headers).
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        // Если через IAM-токен, то указваем headers.set("Authorization", "Bearer " + token);
+        // Если через IAM-токен, то указываем headers.set("Authorization", "Bearer " + token);
         // Через API ключ headers.set("Authorization", "Api-Key " + token);
         headers.set("Authorization", "Api-Key " + apiKey);
         headers.set("x-folder-id", folderId);

@@ -30,7 +30,6 @@ import org.slf4j.LoggerFactory;
 import yandexgeneratorlayer.yandexgeneratorlayer.dto.outbound.ToAPITextGenerator.MessageResponseBackDTO;
 
 import java.util.Map;
-import java.util.TreeMap;
 
 @Service
 public class YandexProcessingService {
@@ -69,17 +68,18 @@ public class YandexProcessingService {
     // Метод для создания ответа клиенту
     private static Map<String, Object> getStringObjectMap(MessageResponseBackDTO response) {
         // Формируем usage
-        Map<String, Object> responseUsage = new TreeMap<>();
-        responseUsage.put("inputTextTokens", response.getUsage().getInputTextTokens());
-        responseUsage.put("completionTokens", response.getUsage().getCompletionTokens());
-        responseUsage.put("totalTokens", response.getUsage().getTotalTokens());
+        Map<String, Object> responseUsage = Map.of(
+                "inputTextTokens", response.getUsage().getInputTextTokens(),
+                "completionTokens", response.getUsage().getCompletionTokens(),
+                "totalTokens", response.getUsage().getTotalTokens()
+        );
 
         // Формируем ответ для клиента
-        Map<String, Object> jsonResponseMap = new TreeMap<>();
-        jsonResponseMap.put("role", response.getRole());
-        jsonResponseMap.put("text", response.getText());
-        jsonResponseMap.put("usage", responseUsage);
-        return jsonResponseMap;
+        return Map.of(
+                "role", response.getRole(),
+                "text", response.getText(),
+                "usage", responseUsage
+        );
     }
 }
 

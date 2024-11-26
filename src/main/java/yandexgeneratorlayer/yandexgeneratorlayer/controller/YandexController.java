@@ -43,15 +43,16 @@ public class YandexController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Map.class),
                             examples = @ExampleObject(name = "SuccessfulResponse",
-                                    value = "{\n" +
-                                            "    \"role\": \"assistant\",\n" +
-                                            "    \"text\": \"Это пример успешного ответа\",\n" +
-                                            "    \"usage\": {\n" +
-                                            "        \"completionTokens\": 23,\n" +
-                                            "        \"inputTextTokens\": 52,\n" +
-                                            "        \"totalTokens\": 75\n" +
-                                            "    }\n" +
-                                            "}"))),
+                                    value = """
+                                            {
+                                                "role": "assistant",
+                                                "text": "Это пример успешного ответа",
+                                                "usage": {
+                                                    "completionTokens": 23,
+                                                    "inputTextTokens": 52,
+                                                    "totalTokens": 75
+                                                }
+                                            }"""))),
             @ApiResponse(responseCode = "400", description = "Ошибка валидации",
                     content = @Content(mediaType = "application/json",
                             examples = @ExampleObject(
