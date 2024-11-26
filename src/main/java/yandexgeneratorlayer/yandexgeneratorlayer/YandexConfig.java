@@ -3,6 +3,12 @@ package yandexgeneratorlayer.yandexgeneratorlayer;
 /*
 Этот класс представляет конфигурационные свойства для работы с Yandex API.
 Все переменные должны быть указаны в application.properties
+
+Проверка переменных на присутствие в них данных.
+В программе используется API-key который должен быть указан в окружении:
+set YANDEX_API_KEY=<api-key> Ну или через настройки переменных окружения в IntellijIdea
+Также надо указать папку:
+set FOLDER_ID=<folderId> Ну или через настройки переменных окружения в IntellijIdea
  */
 
 import lombok.Getter;
@@ -17,12 +23,6 @@ import jakarta.validation.constraints.NotBlank;
 @ConfigurationProperties(prefix = "yandex.api")
 @Validated
 public class YandexConfig {
-
-    // Проверка переменных на присутствие в них данных.123
-    // Сейчас в программе используется API-key который должен быть указан в applications.properties
-
-    @NotBlank(message = "IAM Токен не должен быть пустым")
-    private String iamToken;
 
     @NotBlank(message = "ApiKey не должен быть пустым")
     private String apiKey;
