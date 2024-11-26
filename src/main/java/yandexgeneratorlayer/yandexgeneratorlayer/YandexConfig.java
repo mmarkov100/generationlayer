@@ -18,10 +18,14 @@ import jakarta.validation.constraints.NotBlank;
 @Validated
 public class YandexConfig {
 
-    // Проверка переменных на присутствие в них данных
+    // Проверка переменных на присутствие в них данных.123
+    // Сейчас в программе используется API-key который должен быть указан в applications.properties
 
     @NotBlank(message = "IAM Токен не должен быть пустым")
     private String iamToken;
+
+    @NotBlank(message = "ApiKey не должен быть пустым")
+    private String apiKey;
 
     @NotBlank(message = "Folder ID не должен быть пустым")
     private String folderId;

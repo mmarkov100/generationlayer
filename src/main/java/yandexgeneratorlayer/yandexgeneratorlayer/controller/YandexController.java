@@ -1,8 +1,13 @@
 package yandexgeneratorlayer.yandexgeneratorlayer.controller;
 
+/*
+Класс контроллера для яндекс генерации
+ */
+
 import com.google.gson.Gson;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -29,12 +34,25 @@ public class YandexController {
     }
 
 
+
+    // Документация swagger, доступна по ссылке http://localhost:8082/swagger-ui/index.html#/
     @Operation(summary = "Обработка запроса к Yandex API",
             description = "Обрабатывает запрос с параметрами для генерации текста")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Успешный ответ"),
-            @ApiResponse(responseCode = "400", description = "Ошибка валидации"),
-            @ApiResponse(responseCode = "500", description = "Внутренняя ошибка сервера")
+            @ApiResponse(responseCode = "200", description = "Успешный ответ",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Map.class),
+                            examples = @ExampleObject(name = "SuccessfulResponse",
+                                    value = "{\"role\": \"assistant\", \"text\": \"Это пример успешного ответа\"}"))),
+            @ApiResponse(responseCode = "400", description = "Ошибка валидации",
+                    content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(
+                                    name = "ValidationError",
+                                    value = "{\"error\": \"Validation failed\", \"message\": \"Model URI must not be null\"}"))),
+            @ApiResponse(responseCode = "500", description = "Внутренняя ошибка сервера",
+                    content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(name = "ServerError",
+                                    value = "{\"error\": \"Internal Server Error\", \"message\": \"Unexpected error occurred\"}")))
     })
     @PostMapping("/process")
     public ResponseEntity<?> processYandexRequest(

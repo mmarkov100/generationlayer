@@ -38,7 +38,7 @@ public class YandexCurlService {
 
     // Формирует и отправляет HTTP-запрос
     public String sendRequest(String jsonRequest) throws Exception {
-        String token = yandexConfig.getIamToken();
+        String apiKey = yandexConfig.getApiKey();
         String folderId = yandexConfig.getFolderId();
         String url = yandexConfig.getApiUrl();
 
@@ -46,7 +46,9 @@ public class YandexCurlService {
         //Объект HttpEntity объединяет тело запроса (jsonRequest) и заголовки (headers).
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + token);
+        // Если через IAM-токен, то указваем headers.set("Authorization", "Bearer " + token);
+        // Через API ключ headers.set("Authorization", "Api-Key " + token);
+        headers.set("Authorization", "Api-Key " + apiKey);
         headers.set("x-folder-id", folderId);
 
         HttpEntity<String> entity = new HttpEntity<>(jsonRequest, headers);
