@@ -1,14 +1,16 @@
-package yandexgeneratorlayer.yandexgeneratorlayer.dto.inbound.FromYandexServer;
+package yandexgeneratorlayer.yandexgeneratorlayer.dto.outbound.ToAPITextGenerator;
 
 /*
-Этот класс описывает информацию об использовании токенов, возвращаемую Yandex API.
+Класс для отправки клиенту количество использованных токенов для генерации текста
  */
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-public class UsageDTO {
+@Setter
+public class UsageResponseBackDTO {
 
     //количество токенов, использованных для входного текст
     @SerializedName("inputTextTokens")
@@ -21,5 +23,4 @@ public class UsageDTO {
     // общее количество токенов, включающее входной текст и сгенерированный результат
     @SerializedName("totalTokens")
     private int totalTokens;
-
 }

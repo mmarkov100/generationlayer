@@ -1,7 +1,7 @@
 package yandexgeneratorlayer.yandexgeneratorlayer.controller;
 
 /*
-Класс контроллера для яндекс генерации
+Класс контроллера для яндекс-генерации
  */
 
 import com.google.gson.Gson;
@@ -43,7 +43,15 @@ public class YandexController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Map.class),
                             examples = @ExampleObject(name = "SuccessfulResponse",
-                                    value = "{\"role\": \"assistant\", \"text\": \"Это пример успешного ответа\"}"))),
+                                    value = "{\n" +
+                                            "    \"role\": \"assistant\",\n" +
+                                            "    \"text\": \"Это пример успешного ответа\",\n" +
+                                            "    \"usage\": {\n" +
+                                            "        \"completionTokens\": 23,\n" +
+                                            "        \"inputTextTokens\": 52,\n" +
+                                            "        \"totalTokens\": 75\n" +
+                                            "    }\n" +
+                                            "}"))),
             @ApiResponse(responseCode = "400", description = "Ошибка валидации",
                     content = @Content(mediaType = "application/json",
                             examples = @ExampleObject(
@@ -65,7 +73,7 @@ public class YandexController {
             logger.info("Received JSON: {}", new Gson().toJson(chatDTO));
 
             // Делегируем обработку в сервис
-            Map<String, String> jsonResponse = processingService.processChat(chatDTO);
+            Map<String, Object> jsonResponse = processingService.processChat(chatDTO);
 
             logger.info("Response: {}", jsonResponse);
             return ResponseEntity.ok(jsonResponse);
