@@ -22,7 +22,7 @@ package yandexgeneratorlayer.yandexgeneratorlayer.service;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import yandexgeneratorlayer.yandexgeneratorlayer.YandexConfig;
+import yandexgeneratorlayer.yandexgeneratorlayer.config.YandexConfig;
 
 @Service
 public class YandexCurlService {

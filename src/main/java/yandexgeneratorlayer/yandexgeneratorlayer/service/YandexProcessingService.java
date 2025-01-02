@@ -11,23 +11,14 @@ package yandexgeneratorlayer.yandexgeneratorlayer.service;
 	3. Парсинг ответа:
 		○ Ответ обрабатывается через JSONResponseParserService для извлечения текста.
 		○ Возвращаемое значение формируется в виде карты:
-{
-    "role": "assistant",
-    "text": "160, 90, 170, 80, 180.",
-    "usage": {
-        "completionTokens": 23,
-        "inputTextTokens": 52,
-        "totalTokens": 75
-    }
-}
  */
 
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
-import yandexgeneratorlayer.yandexgeneratorlayer.YandexConfig;
+import yandexgeneratorlayer.yandexgeneratorlayer.config.YandexConfig;
 import yandexgeneratorlayer.yandexgeneratorlayer.dto.inbound.FromAPITextGenerator.YaChatDTO;
 import org.slf4j.LoggerFactory;
-import yandexgeneratorlayer.yandexgeneratorlayer.dto.outbound.ToAPITextGenerator.MessageResponseBackDTO;
+import yandexgeneratorlayer.yandexgeneratorlayer.dto.outbound.ToAPITextGenerator.ResponseBackDTO;
 
 import java.util.Map;
 
@@ -50,23 +41,50 @@ public class YandexProcessingService {
     }
 
     public Map<String, Object> processChat(YaChatDTO chatDTO) throws Exception {
-        // Создаем запрос
-        String jsonRequest = requestBuilderService.buildRequest(chatDTO, yandexConfig.getFolderId());
-        logger.info("Request to Yandex: {}", jsonRequest);
 
-        // Отправляем запрос в Yandex API
-        String jsonResponse = yandexCurlService.sendRequest(jsonRequest);
-        logger.info("Response from Yandex: {}", jsonResponse);
+        logger.info("Starting processChat for modelUri: {}", chatDTO.getModelUri());
 
-        // Обрабатываем ответ через JSONResponseParserService
-        MessageResponseBackDTO response = JSONResponseParserService.getResponseJSON(jsonResponse);
+        try{
+            int maxTokens;
 
-        // Формируем ответ
-        return getStringObjectMap(response);
+            switch (chatDTO.getModelUri()){
+                case "yandexgpt-32k/latest":
+                    maxTokens = 32000;
+                    break;
+                default:
+                    maxTokens = 8000;
+                    break;
+            }
+
+            // Создаем запрос
+            String jsonRequest = requestBuilderService.buildRequest(chatDTO, yandexConfig.getFolderId(), maxTokens);
+            logger.debug("Generated JSON request: {}", jsonRequest);
+
+            // Отправляем запрос в Yandex API
+            logger.info("Sending request to Yandex API...");
+            String jsonResponse = yandexCurlService.sendRequest(jsonRequest);
+
+            // Логируем успешный ответ
+            logger.info("Received response from Yandex API");
+            logger.info("Yandex API response: {}", jsonResponse);
+
+            // Обрабатываем ответ
+            ResponseBackDTO response = JSONResponseParserService.getResponseJSON(jsonResponse);
+
+            // Формируем ответ
+            logger.info("Successfully parsed response");
+            return getStringObjectMap(response);
+        }
+        catch (Exception e){
+            logger.error("Error occurred while processing chat: {}", e.getMessage(), e);
+            throw e;
+        }
     }
 
+
+
     // Метод для создания ответа клиенту
-    private static Map<String, Object> getStringObjectMap(MessageResponseBackDTO response) {
+    private static Map<String, Object> getStringObjectMap(ResponseBackDTO response) {
         // Формируем usage
         Map<String, Object> responseUsage = Map.of(
                 "inputTextTokens", response.getUsage().getInputTextTokens(),
@@ -74,10 +92,15 @@ public class YandexProcessingService {
                 "totalTokens", response.getUsage().getTotalTokens()
         );
 
+        // Формируем сообщение
+        Map<String, Object> responseMessage = Map.of(
+                "role", response.getMessage().getRole(),
+                "text", response.getMessage().getText()
+        );
+
         // Формируем ответ для клиента
         return Map.of(
-                "role", response.getRole(),
-                "text", response.getText(),
+                "message",responseMessage,
                 "usage", responseUsage
         );
     }

@@ -69,13 +69,15 @@ public class YandexController {
                     required = true,
                     content = @Content(schema = @Schema(implementation = YaChatDTO.class)))
             @Valid  @RequestBody YaChatDTO chatDTO) {
+        // Вывод пришедших сообщений в логгер
+        logger.info("Received request: {}", new Gson().toJson(chatDTO));
+
         try {
-            // Вывод пришедших сообщений в логгер
-            logger.info("Received JSON: {}", new Gson().toJson(chatDTO));
 
             // Делегируем обработку в сервис
             Map<String, Object> jsonResponse = processingService.processChat(chatDTO);
 
+            logger.info("Successfully processed request. Responding to client.");
             logger.info("Response: {}", jsonResponse);
             return ResponseEntity.ok(jsonResponse);
 

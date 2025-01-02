@@ -17,6 +17,7 @@ import yandexgeneratorlayer.yandexgeneratorlayer.dto.inbound.FromYandexServer.Me
 import yandexgeneratorlayer.yandexgeneratorlayer.dto.inbound.FromYandexServer.ResponseDTO;
 import yandexgeneratorlayer.yandexgeneratorlayer.dto.inbound.FromYandexServer.UsageDTO;
 import yandexgeneratorlayer.yandexgeneratorlayer.dto.outbound.ToAPITextGenerator.MessageResponseBackDTO;
+import yandexgeneratorlayer.yandexgeneratorlayer.dto.outbound.ToAPITextGenerator.ResponseBackDTO;
 import yandexgeneratorlayer.yandexgeneratorlayer.dto.outbound.ToAPITextGenerator.UsageResponseBackDTO;
 
 @Service
@@ -24,11 +25,15 @@ public class JSONResponseParserService {
 
     private static final Logger logger = LoggerFactory.getLogger(JSONResponseParserService.class);
 
-    public static MessageResponseBackDTO getResponseJSON(String jsonResponse){
+    public static ResponseBackDTO getResponseJSON(String jsonResponse){
+
+        logger.debug("Starting JSON parsing for response: {}", jsonResponse);
 
         // Десериализация JSON в объект Response
         Gson gson = new Gson();
         ResponseDTO responseFromYandexAPI = gson.fromJson(jsonResponse, ResponseDTO.class);
+
+        logger.debug("Parsed ResponseDTO: {}", responseFromYandexAPI);
 
         // Получаем сообщение
         MessageResponseDTO messageResponseDTO = responseFromYandexAPI.getResult().getAlternatives()[0].getMessage();
@@ -41,16 +46,18 @@ public class JSONResponseParserService {
         usageResponseBackDTO.setInputTextTokens(usageDTO.getInputTextTokens());
         usageResponseBackDTO.setCompletionTokens(usageDTO.getCompletionTokens());
         usageResponseBackDTO.setTotalTokens(usageDTO.getTotalTokens());
-        logger.info("Parsed tokens: input={}, completion={}, total={}", usageDTO.getInputTextTokens(), usageDTO.getCompletionTokens(), usageDTO.getTotalTokens());
 
+        // Собираем сообщение
+        MessageResponseBackDTO messageResponseBackDTO = new MessageResponseBackDTO();
+        messageResponseBackDTO.setText(messageResponseDTO.getText());
+        messageResponseBackDTO.setRole(messageResponseDTO.getRole());
 
         // Собираем ответ
-        MessageResponseBackDTO messageResponseBackDTO = new MessageResponseBackDTO();
-        messageResponseBackDTO.setRole(messageResponseDTO.getRole());
-        messageResponseBackDTO.setText(messageResponseDTO.getText());
-        messageResponseBackDTO.setUsage(usageResponseBackDTO);
+        ResponseBackDTO responseBackDTO = new ResponseBackDTO();
+        responseBackDTO.setMessage(messageResponseBackDTO);
+        responseBackDTO.setUsage(usageResponseBackDTO);
 
         // Извлечение сообщения
-        return messageResponseBackDTO;
+        return responseBackDTO;
     }
 }

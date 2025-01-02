@@ -1,4 +1,4 @@
-package yandexgeneratorlayer.yandexgeneratorlayer;
+package yandexgeneratorlayer.yandexgeneratorlayer.config;
 
 /*
 Этот класс представляет конфигурационные свойства для работы с Yandex API.

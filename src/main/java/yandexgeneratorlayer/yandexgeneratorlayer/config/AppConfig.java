@@ -1,4 +1,4 @@
-package yandexgeneratorlayer.yandexgeneratorlayer;
+package yandexgeneratorlayer.yandexgeneratorlayer.config;
 
 /*
 Этот класс отвечает за конфигурацию приложения и создание необходимых компонентов.
