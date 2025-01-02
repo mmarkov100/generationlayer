@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import yandexgeneratorlayer.yandexgeneratorlayer.dto.outbound.ToAPITextGenerator.ResponseBackDTO;
 
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class YandexProcessingService {
@@ -54,6 +55,11 @@ public class YandexProcessingService {
                 default:
                     maxTokens = 8000;
                     break;
+            }
+
+            // В запросе не может быть пустой контекст, поэтому добавляем проверку на пустоту и добавляем в контекст обычный пробел
+            if (Objects.equals(chatDTO.getMessages().getFirst().getText(), "")) {
+                chatDTO.getMessages().getFirst().setText(" ");
             }
 
             // Создаем запрос
