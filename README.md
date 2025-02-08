@@ -80,6 +80,12 @@ https://yandex.cloud/ru/docs/foundation-models/concepts/yandexgpt/models?utm_ref
 
 ## Как пользоваться
 
+Сначала скопируйте репозиторий
+
+   ```BASH
+   git clone https://github.com/mmarkov100/generationlayer
+   ```
+
 Чтобы пользоваться вам нужно указать свой API ключ для генерации в файле YandexConfig, который надо создать по пути src/main/java/generatorlayer/generaorlayer/features/yandexgpttext/config/YandexConfig.java
 
 Ниже приведен пример кода файла
