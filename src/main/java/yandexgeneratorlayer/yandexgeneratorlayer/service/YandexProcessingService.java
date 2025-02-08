@@ -64,7 +64,7 @@ public class YandexProcessingService {
 
             // Создаем запрос
             String jsonRequest = requestBuilderService.buildRequest(chatDTO, yandexConfig.getFolderId(), maxTokens);
-            logger.debug("Generated JSON request: {}", jsonRequest);
+            logger.info("Generated JSON request: {}", jsonRequest);
 
             // Отправляем запрос в Yandex API
             logger.info("Sending request to Yandex API...");
