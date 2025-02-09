@@ -5,6 +5,7 @@ DTO который приходит от яндекса, где содержит
  */
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Setter
 @Getter
+@Data
 public class ChatRequestDTO {
 
     @JsonProperty("modelUri")
@@ -25,6 +27,7 @@ public class ChatRequestDTO {
 
     @Setter
     @Getter
+    @Data
     public static class CompletionOptions {
 
         @JsonProperty("stream")
@@ -48,6 +51,7 @@ public class ChatRequestDTO {
 
         @Getter
         @Setter
+        @Data
         public static class ReasoningOptions {
 
             @JsonProperty("mode")
@@ -61,6 +65,7 @@ public class ChatRequestDTO {
 
     @Setter
     @Getter
+    @Data
     public static class Message {
 
         @JsonProperty("role")

@@ -5,11 +5,13 @@ package generatorlayer.generaorlayer.features.yandexgpttext.dto.outbound;
  */
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
+@Data
 public class YandexResponseTextGenerate {
 
     @JsonProperty("message")
@@ -20,6 +22,7 @@ public class YandexResponseTextGenerate {
 
     @Setter
     @Getter
+    @Data
     public static class MessageDTO {
 
         @JsonProperty("role")
@@ -32,6 +35,7 @@ public class YandexResponseTextGenerate {
 
     @Setter
     @Getter
+    @Data
     public static class UsageDTO {
         @JsonProperty("totalTokens")
         private int totalTokens;

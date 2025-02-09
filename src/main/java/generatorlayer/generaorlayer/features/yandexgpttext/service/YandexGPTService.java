@@ -55,12 +55,13 @@ public class YandexGPTService {
                 }
             };
 
+            // Обновляем корректность модели
             String modelUri = "gpt://" + yandexConfig.getFolderId() + "/" +yandexRequestTextInternal.getModelUri();
             yandexRequestTextInternal.setModelUri(modelUri);
             logger.debug("Selected modelUri: {}", yandexRequestTextInternal.getModelUri());
 
             // Считаем кол-во токенов, которое сейчас есть в чате
-            int totalTokens = countTokens(yandexRequestTextInternal.getMessages());
+            int totalTokens = countTokens(yandexRequestTextInternal.getMessages(), yandexConfig);
 
             // Удаляем старые сообщения, пока токены превышают лимит
             while (totalTokens > maxTokens && yandexRequestTextInternal.getMessages().size() > 2) {
@@ -82,7 +83,7 @@ public class YandexGPTService {
                 }
 
                 // Пересчитываем токены
-                totalTokens = countTokens(yandexRequestTextInternal.getMessages());
+                totalTokens = countTokens(yandexRequestTextInternal.getMessages(), yandexConfig);
             }
 
             // Если все еще превышает лимит — бросаем исключение
@@ -130,12 +131,14 @@ public class YandexGPTService {
 
 
     // Примерный подсчет токенов по количеству слов
-    private static int countTokens(List<YandexRequestTextInternal.Message> messages) {
+    private static int countTokens(List<YandexRequestTextInternal.Message> messages, YandexConfig yandexConfig) {
+        final double TOKEN_MODIFIER = yandexConfig.getTokenModifier();
+
         int tokens = 0;
         for (YandexRequestTextInternal.Message message : messages) {
             tokens += message.getText().split("\\s+").length; // Разделение по пробелам
         }
-        logger.info("Tokens counted: {}", tokens*2.3);
+        logger.info("Tokens counted: {}", tokens * TOKEN_MODIFIER);
         return (int) (tokens*2.3);
     }
 

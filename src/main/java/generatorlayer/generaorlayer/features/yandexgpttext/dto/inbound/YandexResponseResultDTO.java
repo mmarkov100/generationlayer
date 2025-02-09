@@ -1,6 +1,11 @@
 package generatorlayer.generaorlayer.features.yandexgpttext.dto.inbound;
 
+/*
+DTO который приходит от яндекса
+ */
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +13,7 @@ import java.util.List;
 
 @Setter
 @Getter
+@Data
 public class YandexResponseResultDTO {
 
     @JsonProperty("result")
@@ -15,6 +21,7 @@ public class YandexResponseResultDTO {
 
     @Setter
     @Getter
+    @Data
     public static class Result {
 
         @JsonProperty("alternatives")
@@ -30,6 +37,7 @@ public class YandexResponseResultDTO {
 
     @Setter
     @Getter
+    @Data
     public static class Alternative {
 
         @JsonProperty("message")
@@ -42,6 +50,7 @@ public class YandexResponseResultDTO {
 
     @Setter
     @Getter
+    @Data
     public static class Message {
 
         @JsonProperty("role")
@@ -54,6 +63,7 @@ public class YandexResponseResultDTO {
 
     @Setter
     @Getter
+    @Data
     public static class Usage {
 
         @JsonProperty("inputTextTokens")

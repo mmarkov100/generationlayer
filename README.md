@@ -112,6 +112,7 @@ public class YandexConfig {
     
     private String apiUrl = "https://llm.api.cloud.yandex.net/foundationModels/v1/completion";
 
+    private double tokenModifier = 2.3;
 }
 
 

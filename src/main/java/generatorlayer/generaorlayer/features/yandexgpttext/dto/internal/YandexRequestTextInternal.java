@@ -6,10 +6,7 @@ package generatorlayer.generaorlayer.features.yandexgpttext.dto.internal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -17,6 +14,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class YandexRequestTextInternal {
 
     @JsonProperty("modelUri")
@@ -36,6 +34,7 @@ public class YandexRequestTextInternal {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
+    @Data
     public static class CompletionOptions {
         // Описывает, требуется ли потоковая обработка.
         @JsonProperty("stream")
@@ -58,6 +57,7 @@ public class YandexRequestTextInternal {
         @Setter
         @AllArgsConstructor
         @NoArgsConstructor
+        @Data
         public static class ReasoningOptions {
             // Нужно ли нейросети "размышлять при ответе"
             @JsonProperty("mode")
@@ -70,6 +70,7 @@ public class YandexRequestTextInternal {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
+    @Data
     public static class Message {
         @JsonProperty("role")
         @NotNull(message = "Role must not be null")
