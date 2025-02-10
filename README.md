@@ -119,6 +119,23 @@ public class YandexConfig {
    ```
 - Присвойте apiKey значение вашего ключа, также с папкой. Как получить ключ https://yandex.cloud/ru/docs/foundation-models/api-ref/authentication
 
+Также надо создать файл по директории src/main/java/generatorlayer/generaorlayer/features/yandexgpttext/config/YandexConfig.java
+```java
+package redslicedatabase.redslicedatabase.config;
+
+import lombok.Getter;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+
+@Component
+@Configuration
+@Getter
+public class AppConfig {
+
+   private final String apiDatabaseKey = "someApiKey";
+}
+```
+Это нужно для доступа к генератору только от бэкенда
 ## Послесловие
 
 Этот сервис часть моей курсовой работы, поэтому она будет еще дополняться со временем. Как минимум я планирую добавить:
