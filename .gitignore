@@ -1,5 +1,6 @@
 src/main/java/generatorlayer/generaorlayer/features/yandexgpttext/config/YandexConfig.java
 src/main/java/generatorlayer/generaorlayer/core/config/ApiConfig.java
+src/main/java/generatorlayer/generaorlayer/features/genapi/config/GenApiConfig.java
 
 HELP.md
 target/
