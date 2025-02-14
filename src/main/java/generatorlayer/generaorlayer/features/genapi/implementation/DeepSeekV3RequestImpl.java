@@ -10,28 +10,20 @@ import java.util.List;
 @Getter
 @Setter
 @Data
-public class ChatGPT4oMiniRequestImpl implements GenApiRequest {
+public class DeepSeekV3RequestImpl implements GenApiRequest {
 
     private List<Message> messages;
     private double temperature;
+
+    // Геттеры и сеттеры
 
     @Getter
     @Setter
     @Data
     public static class Message {
         private String role;
-        private List<Content> content;
+        private String content;
 
         // Геттеры и сеттеры
-
-        @Getter
-        @Setter
-        @Data
-        public static class Content {
-            private String type;
-            private String text;
-
-            // Геттеры и сеттеры
-        }
     }
 }
