@@ -1,6 +1,5 @@
 package generatorlayer.generaorlayer.features.genapi.dto.inbound;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiRequest;
 import lombok.Data;
 import lombok.Getter;
@@ -15,11 +14,6 @@ public class ChatGPT4oMiniRequestImpl implements GenApiRequest {
 
     private List<Message> messages;
     private double temperature;
-
-//    @Override
-//    public String getModel(){
-//        return model;
-//    }
 
     @Getter
     @Setter

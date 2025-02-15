@@ -22,15 +22,14 @@ public class ChatGPT4oMiniService implements GenApiService {
     private static final Logger logger = LoggerFactory.getLogger(ChatGPT4oMiniService.class);
 
     private final RestTemplate restTemplate;
-    private final GenApiConfig genApiConfig;
 
     @Autowired
-    public ChatGPT4oMiniService(RestTemplate restTemplate, GenApiConfig genApiConfig) {
+    private GenApiConfig genApiConfig;
+
+    public ChatGPT4oMiniService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-        this.genApiConfig = genApiConfig;
     }
 
-    // Метод конвертации для отправки из сервиса
     @Override
     public ResponseGenApiDTO convertToOutbound(GenApiResponse genApiResponse) throws Exception {
         // Создаем новый объект ResponseGenApiDTO
@@ -41,6 +40,7 @@ public class ChatGPT4oMiniService implements GenApiService {
             responseGenApiDTO.setMessage(new ResponseGenApiDTO.MessageDTO());
         }
 
+        // Устанавливаем значения в объект message
         responseGenApiDTO.getMessage().setRole(genApiResponse.getRole());
         responseGenApiDTO.getMessage().setText(genApiResponse.getText());
 
@@ -49,12 +49,12 @@ public class ChatGPT4oMiniService implements GenApiService {
             responseGenApiDTO.setUsage(new ResponseGenApiDTO.UsageDTO());
         }
 
+        // Устанавливаем значения в объект usage
         responseGenApiDTO.getUsage().setCompletionTokens(genApiResponse.getCompletionTokens());
         responseGenApiDTO.getUsage().setTotalTokens(genApiResponse.getAllTokens());
         responseGenApiDTO.getUsage().setInputTextTokens(genApiResponse.getUsageTokens());
         responseGenApiDTO.getUsage().setCost(genApiResponse.getCost());
 
-        logger.info("Convert to output: {}", responseGenApiDTO);
         return responseGenApiDTO;
     }
 
@@ -71,7 +71,9 @@ public class ChatGPT4oMiniService implements GenApiService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Accept", "application/json");
 
+
         HttpEntity<GenApiRequest> entity = new HttpEntity<>(request, headers);
+        logger.info("Entity: {}", request);
 
         // Отсылаем запрос на генерацию в сервис, получаем ответ, что он генерируется
         try {
@@ -97,3 +99,4 @@ public class ChatGPT4oMiniService implements GenApiService {
         }
     }
 }
+
