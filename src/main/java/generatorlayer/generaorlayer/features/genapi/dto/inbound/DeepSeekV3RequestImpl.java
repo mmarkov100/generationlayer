@@ -1,6 +1,6 @@
-package generatorlayer.generaorlayer.features.genapi.implementation;
+package generatorlayer.generaorlayer.features.genapi.dto.inbound;
 
-import generatorlayer.generaorlayer.features.genapi.model.GenApiRequest;
+import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiRequest;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +15,10 @@ public class DeepSeekV3RequestImpl implements GenApiRequest {
     private List<Message> messages;
     private double temperature;
 
-    // Геттеры и сеттеры
+//    @Override
+//    public String getModel(){
+//        return model;
+//    }
 
     @Getter
     @Setter

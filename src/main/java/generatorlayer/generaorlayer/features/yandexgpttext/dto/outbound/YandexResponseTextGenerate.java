@@ -37,6 +37,7 @@ public class YandexResponseTextGenerate {
     @Getter
     @Data
     public static class UsageDTO {
+
         @JsonProperty("totalTokens")
         private int totalTokens;
 
@@ -45,6 +46,5 @@ public class YandexResponseTextGenerate {
 
         @JsonProperty("inputTextTokens")
         private int inputTextTokens;
-
     }
 }

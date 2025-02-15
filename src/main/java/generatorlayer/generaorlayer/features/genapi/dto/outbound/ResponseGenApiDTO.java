@@ -1,7 +1,6 @@
 package generatorlayer.generaorlayer.features.genapi.dto.outbound;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import generatorlayer.generaorlayer.features.yandexgpttext.dto.outbound.YandexResponseTextGenerate;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,12 +8,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Data
-public class ResponseDTO {
+public class ResponseGenApiDTO {
     @JsonProperty("message")
-    private YandexResponseTextGenerate.MessageDTO message;
+    private MessageDTO message;
 
     @JsonProperty("usage")
-    private YandexResponseTextGenerate.UsageDTO usage;
+    private UsageDTO usage;
 
     @Setter
     @Getter

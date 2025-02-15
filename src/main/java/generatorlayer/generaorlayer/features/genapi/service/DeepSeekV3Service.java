@@ -1,15 +1,21 @@
 package generatorlayer.generaorlayer.features.genapi.service;
 
-import generatorlayer.generaorlayer.features.genapi.implementation.ChatGPT4oMiniRequestImpl;
+import generatorlayer.generaorlayer.features.genapi.dto.outbound.ResponseGenApiDTO;
+import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiRequest;
+import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiResponse;
+import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiService;
 import org.springframework.stereotype.Service;
 
-@Service
-public class DeepSeekV3Service {
+@Service("deepseekv3")
+public class DeepSeekV3Service implements GenApiService {
 
-    public String generateResponse(ChatGPT4oMiniRequestImpl request) {
-        // Логика отправки запроса к ChatGPT и обработки ответа
-        // Примерный запрос через RestTemplate или WebClient
+    @Override
+    public ResponseGenApiDTO convertToOutbound(GenApiResponse genApiResponse) throws Exception {
+        return null;
+    }
 
-        return "Ответ от ChatGPT";
+    @Override
+    public GenApiResponse generateResponse(GenApiRequest genApiRequest) throws Exception {
+        return null;
     }
 }

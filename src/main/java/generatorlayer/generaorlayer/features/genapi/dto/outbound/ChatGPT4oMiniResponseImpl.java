@@ -1,6 +1,6 @@
-package generatorlayer.generaorlayer.features.genapi.implementation;
+package generatorlayer.generaorlayer.features.genapi.dto.outbound;
 
-import generatorlayer.generaorlayer.features.genapi.model.GenApiResponse;
+import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiResponse;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +19,44 @@ public class ChatGPT4oMiniResponseImpl implements GenApiResponse {
     private List<String> result;
     private List<FullResponse> fullResponse;
     private Parameters parameters;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public List<String> getResult() {
+        return result;
+    }
+
+    @Override
+    public String getRole() {
+        return "assistant";
+    }
+
+    @Override
+    public String getText() {
+        return result.get(result.size() - 1);
+    }
+
+    @Override
+    public Integer getUsageTokens() {
+        return 0;
+    }
+
+    @Override
+    public Integer getCompletionTokens() {
+        return 0;
+    }
+
+    @Override
+    public Integer getAllTokens() {
+        return 0;
+    }
+
+    @Override
+    public double getCost(){
+        return cost;
+    }
 
     @Getter
     @Setter
