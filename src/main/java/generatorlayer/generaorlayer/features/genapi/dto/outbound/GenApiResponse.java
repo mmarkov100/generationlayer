@@ -1,4 +1,4 @@
-package generatorlayer.generaorlayer.features.genapi.interfaces;
+package generatorlayer.generaorlayer.features.genapi.dto.outbound;
 
 public interface GenApiResponse {
     String getRole();

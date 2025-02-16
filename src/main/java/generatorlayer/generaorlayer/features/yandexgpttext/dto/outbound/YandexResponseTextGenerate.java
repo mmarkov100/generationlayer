@@ -20,6 +20,14 @@ public class YandexResponseTextGenerate {
     @JsonProperty("usage")
     private UsageDTO usage;
 
+    public void setMessage(MessageDTO message){
+        this.message = message;
+    }
+
+    public void setUsage(UsageDTO usage){
+        this.usage = usage;
+    }
+
     @Setter
     @Getter
     @Data
@@ -30,6 +38,14 @@ public class YandexResponseTextGenerate {
 
         @JsonProperty("text")
         private String text;
+
+        public void setRole(String role){
+            this.role = role;
+        }
+
+        public void setText(String text){
+            this.text = text;
+        }
 
     }
 
@@ -46,5 +62,24 @@ public class YandexResponseTextGenerate {
 
         @JsonProperty("inputTextTokens")
         private int inputTextTokens;
+
+        @JsonProperty("cost")
+        private double cost;
+
+        public void setTotalTokens(int totalTokens){
+            this.totalTokens = totalTokens;
+        }
+
+        public void setCompletionTokens(int completionTokens){
+            this.completionTokens = completionTokens;
+        }
+
+        public void setInputTextTokens(int inputTextTokens){
+            this.inputTextTokens = inputTextTokens;
+        }
+
+        public void setCost(double cost){
+            this.cost = cost;
+        }
     }
 }

@@ -4,9 +4,8 @@ import generatorlayer.generaorlayer.features.genapi.config.GenApiConfig;
 import generatorlayer.generaorlayer.features.genapi.dto.inbound.MessageStartDTO;
 import generatorlayer.generaorlayer.features.genapi.dto.outbound.DeepSeekV3ResponseImpl;
 import generatorlayer.generaorlayer.features.genapi.dto.outbound.ResponseGenApiDTO;
-import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiRequest;
-import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiResponse;
-import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiService;
+import generatorlayer.generaorlayer.features.genapi.dto.inbound.GenApiRequest;
+import generatorlayer.generaorlayer.features.genapi.dto.outbound.GenApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +16,16 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Objects;
 
 @Service("deepseekv3")
-public class DeepSeekV3Service implements GenApiService {
+public class DeepSeekV3GenApiService implements GenApiService {
 
-    private static final Logger logger = LoggerFactory.getLogger(DeepSeekV3Service.class);
+    private static final Logger logger = LoggerFactory.getLogger(DeepSeekV3GenApiService.class);
 
     private final RestTemplate restTemplate;
 
     @Autowired
     private GenApiConfig genApiConfig;
 
-    public DeepSeekV3Service(RestTemplate restTemplate) {
+    public DeepSeekV3GenApiService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 

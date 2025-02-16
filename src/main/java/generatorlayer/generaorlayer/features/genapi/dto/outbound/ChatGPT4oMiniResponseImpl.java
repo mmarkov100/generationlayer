@@ -1,6 +1,5 @@
 package generatorlayer.generaorlayer.features.genapi.dto.outbound;
 
-import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiResponse;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

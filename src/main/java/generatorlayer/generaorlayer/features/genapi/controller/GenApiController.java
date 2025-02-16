@@ -4,11 +4,11 @@ import generatorlayer.generaorlayer.core.config.ApiConfig;
 import generatorlayer.generaorlayer.features.genapi.config.GenApiConfig;
 import generatorlayer.generaorlayer.features.genapi.dto.inbound.ChatGPT4oMiniRequestImpl;
 import generatorlayer.generaorlayer.features.genapi.dto.inbound.DeepSeekV3RequestImpl;
-import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiRequest;
-import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiResponse;
-import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiService;
-import generatorlayer.generaorlayer.features.genapi.service.ChatGPT4oMiniService;
-import generatorlayer.generaorlayer.features.genapi.service.DeepSeekV3Service;
+import generatorlayer.generaorlayer.features.genapi.dto.inbound.GenApiRequest;
+import generatorlayer.generaorlayer.features.genapi.dto.outbound.GenApiResponse;
+import generatorlayer.generaorlayer.features.genapi.service.GenApiService;
+import generatorlayer.generaorlayer.features.genapi.service.ChatGPT4oMiniGenApiService;
+import generatorlayer.generaorlayer.features.genapi.service.DeepSeekV3GenApiService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,10 +37,10 @@ public class GenApiController {
     private GenApiConfig genApiConfig;
 
     @Autowired
-    private ChatGPT4oMiniService chatGPT4oMiniService;
+    private ChatGPT4oMiniGenApiService chatGPT4oMiniService;
 
     @Autowired
-    private DeepSeekV3Service deepSeekV3Service;
+    private DeepSeekV3GenApiService deepSeekV3Service;
 
     // Эндпоинт на генерацию ген-апи, сейчас либо дипсик, либо чатгпт4омини делаю
     @PostMapping("/generate")

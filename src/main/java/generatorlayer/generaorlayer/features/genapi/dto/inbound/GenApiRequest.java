@@ -1,9 +1,7 @@
-package generatorlayer.generaorlayer.features.genapi.interfaces;
+package generatorlayer.generaorlayer.features.genapi.dto.inbound;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import generatorlayer.generaorlayer.features.genapi.dto.inbound.ChatGPT4oMiniRequestImpl;
-import generatorlayer.generaorlayer.features.genapi.dto.inbound.DeepSeekV3RequestImpl;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,

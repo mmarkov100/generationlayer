@@ -1,7 +1,6 @@
 package generatorlayer.generaorlayer.features.genapi.dto.outbound;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiResponse;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

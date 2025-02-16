@@ -4,9 +4,8 @@ import generatorlayer.generaorlayer.features.genapi.config.GenApiConfig;
 import generatorlayer.generaorlayer.features.genapi.dto.inbound.MessageStartDTO;
 import generatorlayer.generaorlayer.features.genapi.dto.outbound.ResponseGenApiDTO;
 import generatorlayer.generaorlayer.features.genapi.dto.outbound.ChatGPT4oMiniResponseImpl;
-import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiRequest;
-import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiResponse;
-import generatorlayer.generaorlayer.features.genapi.interfaces.GenApiService;
+import generatorlayer.generaorlayer.features.genapi.dto.inbound.GenApiRequest;
+import generatorlayer.generaorlayer.features.genapi.dto.outbound.GenApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +16,16 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Objects;
 
 @Service
-public class ChatGPT4oMiniService implements GenApiService {
+public class ChatGPT4oMiniGenApiService implements GenApiService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ChatGPT4oMiniService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ChatGPT4oMiniGenApiService.class);
 
     private final RestTemplate restTemplate;
 
     @Autowired
     private GenApiConfig genApiConfig;
 
-    public ChatGPT4oMiniService(RestTemplate restTemplate) {
+    public ChatGPT4oMiniGenApiService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 

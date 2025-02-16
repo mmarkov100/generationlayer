@@ -45,15 +45,35 @@ public class YandexGPTService {
                 logger.debug("Context is null");
             }
 
-            // Проверка на существование модели от Яндекса и установка maxTokens
-            int maxTokens = switch (yandexRequestTextInternal.getModelUri()) {
-                case "yandexgpt-32k/latest" -> 32000;
-                case "yandexgpt-lite/latest", "yandexgpt/latest", "llama/latest", "llama-lite/latest" -> 8000;
-                default -> {
+            int maxTokens; // Максимальное окно памяти токенов, которое может в себе содержать чат
+            double costAmpl; // Переменная для цены 1 токена для генерации
+
+            switch (yandexRequestTextInternal.getModelUri()) {
+                case "yandexgpt-32k/latest":
+                    maxTokens = 32000;
+                    costAmpl = 0.0012; // Цена создания 1 токена для генерации
+                    break;
+                case "yandexgpt-lite/latest":
+                    maxTokens = 8000;
+                    costAmpl = 0.0002; // Цена создания 1 токена для генерации
+                    break;
+                case "yandexgpt/latest":
+                    maxTokens = 8000;
+                    costAmpl = 0.0012; // Цена создания 1 токена для генерации
+                    break;
+                case "llama/latest":
+                    maxTokens = 8000;
+                    costAmpl = 0.0012; // Цена создания 1 токена для генерации
+                    break;
+                case "llama-lite/latest":
+                    maxTokens = 8000;
+                    costAmpl = 0.0002; // Цена создания 1 токена для генерации
+                    break;
+                default: {
                     logger.error("ERROR: This model does not exist");
                     throw new RuntimeException("This model does not exist");
                 }
-            };
+            }
 
             // Обновляем корректность модели
             String modelUri = "gpt://" + yandexConfig.getFolderId() + "/" +yandexRequestTextInternal.getModelUri();
@@ -100,7 +120,7 @@ public class YandexGPTService {
             YandexResponseResultDTO yandexResponseResultDTO = sendRequestToYandexGPT(chatRequestDTO);
             logger.info("Response from Yandex: {}", yandexResponseResultDTO.getResult().getAlternatives().get(0).getMessage().getText());
 
-            return convertToOutbound(yandexResponseResultDTO);
+            return convertToOutbound(yandexResponseResultDTO, costAmpl);
 
         } catch (Exception e) {
             logger.error("ERROR: {}", e.getMessage());
@@ -142,7 +162,7 @@ public class YandexGPTService {
         return (int) (tokens*2.3);
     }
 
-    public static YandexResponseTextGenerate convertToOutbound(YandexResponseResultDTO inboundDto) {
+    public static YandexResponseTextGenerate convertToOutbound(YandexResponseResultDTO inboundDto, double costAmpl) {
         if (inboundDto == null || inboundDto.getResult() == null || inboundDto.getResult().getAlternatives().isEmpty()) {
             return null;
         }
@@ -160,6 +180,7 @@ public class YandexGPTService {
         usageDTO.setTotalTokens(Integer.parseInt(usage.getTotalTokens()));
         usageDTO.setCompletionTokens(Integer.parseInt(usage.getCompletionTokens()));
         usageDTO.setInputTextTokens(Integer.parseInt(usage.getInputTextTokens()));
+        usageDTO.setCost(Double.parseDouble(usage.getTotalTokens()) * costAmpl);
         outboundDto.setUsage(usageDTO);
 
         return outboundDto;
