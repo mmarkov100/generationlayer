@@ -79,7 +79,7 @@ https://yandex.cloud/ru/docs/foundation-models/concepts/yandexgpt/models?utm_ref
 
 
 ## Пример запроса На DeepSeek-V3 и ChatGPT4o-mini
-Пример HTTP POST запроса на http://localhost:8085/api/yandex/process (должен быть указан хеддер с нужным API ключом этого сервиса)
+Пример HTTP POST запроса на http://localhost:8085/genapi/generate (должен быть указан хеддер с нужным API ключом этого сервиса)
    ```JSON
 {
   "model": "deepseek-v3",
