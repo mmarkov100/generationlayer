@@ -1,16 +1,16 @@
 # Message Generator
 
-Это микросервис-прослойка между сервисами яндекса для генерации текста.
+Это микросервис-прослойка между сервисами генераторов для генерации текста.
 
 ## Возможности
 
 - **Генерация сообщений**: Позволяет генерировать сообщения от нейросети в режиме чата и промпт-режиме
 - **Контекст**: возможно указать контекст сообщения
-- **Смена нейросетей и температуры**: Возможность обращаться к разным доступным версиям YandexGPT
+- **Смена нейросетей и температуры**: Возможность обращаться к разным доступным версиям YandexGPT и gen-api (Только ChatGPT4o-mini и DeepSeek-V3)
 
-## Пример запроса
+## Пример запроса YandexGPT Llama
 
-Пример HTTP POST запроса на http://localhost:8085/api/yandex/process
+Пример HTTP POST запроса на http://localhost:8085/api/yandex/process (должен быть указан хеддер с нужным API ключом этого сервиса)
 
    ```JSON
 {
@@ -78,6 +78,95 @@ https://yandex.cloud/ru/docs/foundation-models/concepts/yandexgpt/models?utm_ref
 - usage - Количество токенов было потрачено при создании этого сообщения
 
 
+## Пример запроса На DeepSeek-V3 и ChatGPT4o-mini
+Пример HTTP POST запроса на http://localhost:8085/api/yandex/process (должен быть указан хеддер с нужным API ключом этого сервиса)
+   ```JSON
+{
+  "model": "deepseek-v3",
+  "messages": [
+    {
+      "content": "В конце каждого сообщения добавляй ЙОУ!!",
+      "role": "system"
+    },
+    {
+      "content": "Привет, как дела?",
+      "role": "user"
+    },
+    {
+      "content": "Отлично ЙОУ!!",
+      "role": "assistant"
+    },
+    {
+      "content": "Что делаешь?",
+      "role": "user"
+    }
+  ],
+  "temperature": 1
+}
+   ```
+
+От чатгпт, тот же URL и хедер
+   ```JSON
+{
+  "model": "chatgpt4o-mini",
+  "messages": [
+    {
+      "role": "system",
+      "content": [
+        {
+          "type": "text",
+          "text": "В конце каждого сообщения добавляй ЙОУ!!"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Сколько будет 2+3*5"
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "Будет 17. ЙОУ!!"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Это хорошо"
+        }
+      ]
+    }
+  ],
+  "temperature": 0
+}
+   ```
+
+## Ответ от сервиса
+   ```JSON
+{
+    "message": {
+        "role": "assistant",
+        "text": "Отвечаю на твои вопросы, дружище ЙОУ!!"
+    },
+    "usage": {
+        "totalTokens": 84,
+        "completionTokens": 26,
+        "inputTextTokens": 58,
+        "cost": 0.0376
+    }
+}
+   ```
+
 ## Как пользоваться
 
 Сначала скопируйте репозиторий
@@ -135,6 +224,26 @@ public class ApiConfig {
    private final String apiGenerationKey = "someApiKey";
 }
 ```
+
+Также еще указать ключ от GenApi https://gen-api.ru/
+```java
+package generatorlayer.generaorlayer.features.genapi.config;
+
+import lombok.Getter;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+
+@Component
+@Configuration
+@Getter
+public class GenApiConfig {
+
+  private String apiKey = "someApiKey";
+  private String urlNetworks = "https://api.gen-api.ru/api/v1/networks";
+  private String urlGet = "https://api.gen-api.ru/api/v1/request/get";
+}
+
+```
 Это нужно для доступа к генератору только от бэкенда
 ## Послесловие
 
@@ -143,3 +252,4 @@ public class ApiConfig {
 - Другие нейросети для генерации текста
 - Поддержка потока сообщений от нейросети, когда она генерирует сообщения
 - Поддержку генерации картинок
+- Рефакторинг кода
