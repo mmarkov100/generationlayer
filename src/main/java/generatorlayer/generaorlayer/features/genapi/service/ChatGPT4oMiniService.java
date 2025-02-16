@@ -31,7 +31,7 @@ public class ChatGPT4oMiniService implements GenApiService {
     }
 
     @Override
-    public ResponseGenApiDTO convertToOutbound(GenApiResponse genApiResponse) throws Exception {
+    public ResponseGenApiDTO convertToOutbound(GenApiResponse genApiResponse){
         // Создаем новый объект ResponseGenApiDTO
         ResponseGenApiDTO responseGenApiDTO = new ResponseGenApiDTO();
 

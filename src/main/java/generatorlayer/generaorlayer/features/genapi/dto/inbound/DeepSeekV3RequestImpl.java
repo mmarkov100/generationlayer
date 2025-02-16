@@ -15,18 +15,11 @@ public class DeepSeekV3RequestImpl implements GenApiRequest {
     private List<Message> messages;
     private double temperature;
 
-//    @Override
-//    public String getModel(){
-//        return model;
-//    }
-
     @Getter
     @Setter
     @Data
     public static class Message {
         private String role;
         private String content;
-
-        // Геттеры и сеттеры
     }
 }

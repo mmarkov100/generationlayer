@@ -19,10 +19,9 @@ public class ChatGPT4oMiniRequestImpl implements GenApiRequest {
     @Setter
     @Data
     public static class Message {
+
         private String role;
         private List<Content> content;
-
-        // Геттеры и сеттеры
 
         @Getter
         @Setter
@@ -30,8 +29,6 @@ public class ChatGPT4oMiniRequestImpl implements GenApiRequest {
         public static class Content {
             private String type;
             private String text;
-
-            // Геттеры и сеттеры
         }
     }
 }

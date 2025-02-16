@@ -12,7 +12,7 @@ import generatorlayer.generaorlayer.features.genapi.dto.inbound.DeepSeekV3Reques
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = ChatGPT4oMiniRequestImpl.class, name = "chatgpt4o-mini"),
-        @JsonSubTypes.Type(value = DeepSeekV3RequestImpl.class, name = "deepseekv3")
+        @JsonSubTypes.Type(value = DeepSeekV3RequestImpl.class, name = "deepseek-v3")
 })
 public interface GenApiRequest {
 }
